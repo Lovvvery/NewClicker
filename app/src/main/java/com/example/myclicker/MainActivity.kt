@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         var money = prefs.getInt("money", 0)
         var moneyPlus = 1
 
-        val btn: Button = findViewById(R.id.buttonClick)
+        val btn: ImageButton = findViewById(R.id.buttonClick)
         val score: TextView = findViewById(R.id.TextMoney)
 
         score.text = "$money $".toString()
