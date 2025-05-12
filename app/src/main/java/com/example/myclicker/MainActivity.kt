@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -22,22 +23,35 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val prefs = getSharedPreferences("click_save",MODE_PRIVATE)
+        val prefs = getSharedPreferences("click_save", MODE_PRIVATE)
         var money = prefs.getInt("money", 0)
-        var moneyPlus = 1
+        var moneyPlus = prefs.getInt("moneyPlus", 1)
 
         val btn: ImageButton = findViewById(R.id.buttonClick)
         val score: TextView = findViewById(R.id.TextMoney)
 
-        score.text = "$money $".toString()
+        score.text = "$money $"
+
+
 
         btn.setOnClickListener {
             money += moneyPlus
-            score.text = "$money $".toString()
+            score.text = "$money $"
             prefs.edit().putInt("money", money).apply()
+
+            if (money >= 100) {
+                btn.setImageResource(R.drawable.lvl2 )
+
+            }
+            if (money >= 400){
+                btn.setImageResource(R.drawable.lvl3)
+            }
+
+
+
         }
     }
-    fun shopButton(view: View){
+    fun shopButton(view: View) {
         val intent = Intent(this, ShopActivity::class.java)
         startActivity(intent)
     }

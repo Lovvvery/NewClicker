@@ -8,6 +8,7 @@
     android:background="@drawable/back"
     tools:context=".MainActivity">
 
+
     <TextView
         android:id="@+id/TextMoney"
         android:layout_width="wrap_content"
@@ -21,8 +22,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.641" />
-
-
 
     <Button
         android:id="@+id/buttonShop"
@@ -46,6 +45,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TextMoney"
         app:layout_constraintVertical_bias="0.24"
-        app:srcCompat="@drawable/money" />
+        app:srcCompat="@drawable/images" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
