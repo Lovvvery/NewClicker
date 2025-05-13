@@ -7,13 +7,14 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
+    private var money=0
+    private var moneyPlus=1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -23,35 +24,30 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
         val prefs = getSharedPreferences("click_save", MODE_PRIVATE)
-        var money = prefs.getInt("money", 0)
-        var moneyPlus = prefs.getInt("moneyPlus", 1)
+        money= prefs.getInt("money", 0)
 
         val btn: ImageButton = findViewById(R.id.buttonClick)
         val score: TextView = findViewById(R.id.TextMoney)
 
         score.text = "$money $"
 
-
-
         btn.setOnClickListener {
             money += moneyPlus
-            score.text = "$money $"
-            prefs.edit().putInt("money", money).apply()
-
-            if (money >= 100) {
-                btn.setImageResource(R.drawable.lvl2 )
-
-            }
-            if (money >= 400){
-                btn.setImageResource(R.drawable.lvl3)
-            }
-
-
+            score.text = "$money $".toString()
 
         }
+
+
     }
-    fun shopButton(view: View) {
+    override fun onStop() {
+        super.onStop()
+        val prefs = getSharedPreferences("click_save",MODE_PRIVATE)
+        prefs.edit().putInt("money", money).apply()
+
+    }
+    fun shopButton(view: View){
         val intent = Intent(this, ShopActivity::class.java)
         startActivity(intent)
     }
