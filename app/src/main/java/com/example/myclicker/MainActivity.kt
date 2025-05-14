@@ -1,26 +1,28 @@
 package com.example.myclicker
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.content.edit
 
 class MainActivity : AppCompatActivity() {
-    val prefs = getSharedPreferences("click_save", MODE_PRIVATE)
+    private lateinit var prefs: SharedPreferences
 
-    val btn: ImageButton = findViewById(R.id.buttonClick)
-    val score: TextView = findViewById(R.id.TextMoney)
+    private var money = 0
+    private var moneyPlus = 1
+    private lateinit var scoreTextView: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         setContentView(R.layout.activity_main)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -28,32 +30,46 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-    }
-
-    fun clickButton(view: View){
-        var money = prefs.getInt("money", 0)
-        var moneyPlus = prefs.getInt("moneyPlus", 1)
-        money += moneyPlus
-        score.text = "$money $"
-
-
-        if (money >= 100) {
-            btn.setImageResource(R.drawable.lvl2 )
-
-        }
-        if (money >= 400){
-            btn.setImageResource(R.drawable.lvl3)
-        }
+        prefs = getSharedPreferences(Constants.CLICK_SAVE, MODE_PRIVATE)
+        scoreTextView = findViewById<TextView>(R.id.scoreTextView)
+        loadData()
     }
 
     override fun onStop() {
         super.onStop()
-
-        var money = prefs.getInt("money", 0)
-        prefs.edit().putInt("money", money).apply()
-
+        saveData()
     }
+
+    private fun loadData() {
+        money = prefs.getInt(Constants.MONEY_KEY, 0)
+        moneyPlus = prefs.getInt(Constants.MONEY_PLUS_KEY, 1)
+
+        scoreTextView.text = "${money}$"
+    }
+
+    private fun saveData() {
+        prefs.edit {
+            putInt(Constants.MONEY_KEY, money)
+            putInt(Constants.MONEY_PLUS_KEY, moneyPlus)
+        }
+    }
+
+    fun onButtonClick(view: View) {
+        val imageButton = view as ImageButton
+        money += moneyPlus
+        scoreTextView.text = "${money}$"
+
+        if (money >= 100) {
+            imageButton.setImageResource(R.drawable.lvl2)
+        }
+        if (money >= 400){
+            imageButton.setImageResource(R.drawable.lvl3)
+        }
+    }
+
     fun shopButton(view: View) {
+        saveData()
+
         val intent = Intent(this, ShopActivity::class.java)
         startActivity(intent)
     }

@@ -10,7 +10,7 @@
 
 
     <TextView
-        android:id="@+id/TextMoney"
+        android:id="@+id/scoreTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
@@ -40,11 +40,11 @@
         android:layout_height="261dp"
         android:backgroundTint="#00FFFFFF"
         android:scaleType="fitStart"
-        android:onClick="clickButton"
+        android:onClick="onButtonClick"
         app:layout_constraintBottom_toTopOf="@+id/buttonShop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextMoney"
+        app:layout_constraintTop_toBottomOf="@+id/scoreTextView"
         app:layout_constraintVertical_bias="0.24"
         app:srcCompat="@drawable/images" />
 
