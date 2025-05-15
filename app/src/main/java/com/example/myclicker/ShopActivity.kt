@@ -1,5 +1,6 @@
 package com.example.myclicker
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -11,6 +12,10 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class ShopActivity : AppCompatActivity() {
+    private lateinit var prefs: SharedPreferences
+    private var money = 0
+    private var moneyPlus = 10
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -20,9 +25,9 @@ class ShopActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        var prefs = getSharedPreferences(Constants.CLICK_SAVE, MODE_PRIVATE)
-        var money = prefs.getInt(Constants.MONEY_KEY, 0)
-        var moneyPlus = prefs.getInt(Constants.MONEY_PLUS_KEY, 1)
+        prefs = getSharedPreferences(Constants.CLICK_SAVE, MODE_PRIVATE)
+        money = prefs.getInt(Constants.MONEY_KEY, 0)
+        moneyPlus = prefs.getInt(Constants.MONEY_PLUS_KEY, 1)
 
         val btn: Button = findViewById(R.id.buttonBuy)
 
