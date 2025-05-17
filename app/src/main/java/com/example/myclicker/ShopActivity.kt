@@ -2,12 +2,14 @@ package com.example.myclicker
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Looper
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.collection.MutableIntList
 import androidx.core.content.edit
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -67,13 +69,25 @@ class ShopActivity : AppCompatActivity() {
             else
                 Toast.makeText(this,"Недостаточно средств", Toast.LENGTH_SHORT).show()
         }
+
+        //остановился тут
         var btn3: Button = findViewById(R.id.buttonBuy4)
+        btn3.setOnClickListener {
+            
+            money -= 500
+            prefs.edit{
+                while (money <= 1000000000){
+                    print(money)
+                    money = money+1
+                }
+
+            }
+            Toast.makeText(this, "Покупка успешна!", Toast.LENGTH_SHORT).show()
+
+        }
 
         btn3.setOnClickListener {
             var money = prefs.getInt(Constants.MONEY_KEY,0)
-
         }
     }
-
-    fun backButton(view: View) = finish()
 }
