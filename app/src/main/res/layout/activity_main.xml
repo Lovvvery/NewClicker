@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/back"
-    tools:context=".MainActivity">
+    tools:context=".ui.MainActivity">
 
 
     <TextView
@@ -28,9 +28,10 @@
         android:id="@+id/buttonShop"
         android:layout_width="238dp"
         android:layout_height="46dp"
-        android:text="Магазин"
-        android:onClick="shopButton"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="#9E2828"
+        android:onClick="shopButton"
+        android:text="Магазин"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
